@@ -17,3 +17,4 @@ koth-arena/koth-logs/*
 **/id_rsa*
 .DS_Store
 Thumbs.db
+wazuh-docker/single-node/config/wazuh_indexer_ssl_certs/
