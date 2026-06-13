@@ -1,0 +1,19 @@
+# Abaikan Data & Volume Docker Wazuh (Sangat Besar!)
+**/wazuh-indexer-data/
+**/wazuh-manager-data/
+**/wazuh-dashboard-data/
+**/wazuh_indexer_data/
+**/wazuh_manager_data/
+
+# Abaikan Log yang membengkak
+**/*.log
+koth-arena/koth-logs/*
+!koth-arena/koth-logs/.gitkeep
+
+# Abaikan file sensitif & sampah OS
+.env
+**/*.pem
+**/*.key
+**/id_rsa*
+.DS_Store
+Thumbs.db

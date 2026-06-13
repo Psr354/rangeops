@@ -1,0 +1,11 @@
+version: '3.8'
+services:
+  koth-box:
+    build: .
+    container_name: koth-arena
+    ports:
+      - "2222:22"
+      - "8080:80"
+    volumes:
+      - ./koth-logs:/var/log/koth
+    restart: unless-stopped

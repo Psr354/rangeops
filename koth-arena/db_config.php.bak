@@ -1,0 +1,5 @@
+<?php
+// TODO: Pindahkan ke environment variables
+$db_user = "player";
+$db_pass = "SuperSecretPlayerPass2026!";
+?>
