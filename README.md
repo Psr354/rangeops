@@ -31,17 +31,17 @@ Monitoring containers is challenging because Docker isolates processes, filesyst
 
 RangeOps solves this problem using a custom **Docker Telemetry Bridge**.
 
-## Features
+---
 
-### Agentless Container Monitoring
+## Agentless Container Monitoring
 
 Uses:
 
-- Docker shared volumes
-- Bash shell wrappers
+- Docker Shared Volumes
+- Bash Shell Wrappers
 - `PROMPT_COMMAND`
 
-to forward interactive shell activity from isolated containers into the Wazuh Manager.
+to forward interactive shell activity from isolated containers into Wazuh Manager.
 
 Example telemetry:
 
@@ -63,7 +63,7 @@ Includes:
 - OSRegex / PCRE2 patterns
 - Custom detection rules
 
-Severity range:
+Severity levels:
 
 ```
 Level 3  → Informational
@@ -73,8 +73,35 @@ Level 14 → Critical Incident
 
 Mapped against:
 
-- MITRE ATT&CK techniques
-- Real-world kill chain stages
+- MITRE ATT&CK
+- Enterprise attack kill-chain
+
+---
+
+## Real-Time Alerting
+
+Detects:
+
+- Suspicious shell activity
+- Privilege escalation
+- File modification
+- Persistence attempts
+
+Example:
+
+```text
+Attacker modifies:
+
+/root/king.txt
+
+↓
+
+Wazuh Alert
+
+↓
+
+SOC Investigation
+```
 
 ---
 
@@ -83,6 +110,8 @@ Mapped against:
 > Competitive Persistence & Privilege Escalation
 
 A volatile multi-attacker environment designed to simulate attacker competition.
+
+---
 
 ## Objective
 
@@ -93,7 +122,7 @@ Attackers must:
 3. Maintain persistence
 4. Capture the throne
 
-The final objective:
+Target:
 
 ```bash
 /root/king.txt
@@ -101,141 +130,206 @@ The final objective:
 
 ---
 
-## Purple Team Detection Flow
+## Attack Simulation
 
-When an attacker executes:
+Example:
+
+```bash
+ssh player@<TARGET_IP> -p 2222
+```
+
+Privilege escalation:
+
+```bash
+bash -p
+```
+
+Claim throne:
 
 ```bash
 echo "PLAYER_WINS" > /root/king.txt
 ```
 
-The telemetry bridge detects the modification.
+---
 
-Wazuh generates:
+## Purple Team Detection
+
+When the throne is captured:
 
 ```
-Level 14 - EMERGENCY
-```
+File Modification Detected
 
-simulating a real-world breach alert.
+↓
+
+Wazuh Level 14 Emergency Alert
+
+↓
+
+SOC Response
+```
 
 ---
 
 # 💻 3. Boot2Root (B2R) Scenarios
 
-> Enterprise Exploitation Lab
+> End-to-End Enterprise Exploitation & System Compromise
 
-RangeOps provides realistic vulnerable environments based on:
+Curated real-world vulnerable environments designed to simulate a complete **attack kill-chain**, starting from initial access until full **OS-level compromise**.
 
-- Known CVEs
-- Misconfigurations
-- Privilege escalation paths
+The goal:
 
----
-
-## Image Sources
-
-### Vulhub
-
-RangeOps uses:
-
-https://github.com/vulhub/vulhub
-
-for pre-built vulnerable Docker environments.
-
-Examples:
-
-- Jenkins
-- Tomcat
-- Redis
-- Web applications
+- Initial foothold
+- Exploitation
+- Post exploitation
+- Privilege escalation
+- Detection engineering
 
 ---
 
-## Custom Docker Images
+# Current B2R Targets
 
-Custom targets are created using:
+## Jenkins CI/CD — CVE-2018-1000861
 
-- Ubuntu
-- Debian
-- Bash provisioning scripts
-- Dockerfiles
-
-
-Used for scenarios such as:
-
-- Weak SSH credentials
-- SUID exploitation
-- Linux privilege escalation
-- Sudo misconfiguration
-
----
-
-# Current Scenarios
-
-## Jenkins CI/CD
-
-**CVE-2018-1000861**
+**Enterprise CI/CD Remote Code Execution**
 
 Attack chain:
 
-```
+```text
 Unauthenticated Access
         ↓
 ACL Bypass
         ↓
-Groovy ASTTest RCE
+Groovy ASTTest Compile-Time RCE
+        ↓
+Command Execution
         ↓
 Privilege Escalation
 ```
 
+Techniques:
+
+- Jenkins misconfiguration abuse
+- Groovy exploitation
+- CI/CD security testing
+- Linux privilege escalation
+
 ---
 
-## Apache Tomcat WebDAV
+## Apache Tomcat WebDAV — CVE-2017-12615
 
-**CVE-2017-12615**
+**Java WebDAV Upload Bypass**
 
 Attack chain:
 
-```
+```text
 HTTP PUT Abuse
         ↓
-Extension Bypass
+Extension Validation Bypass
         ↓
 JSP Upload
         ↓
 Remote Code Execution
+        ↓
+OS Pivot
 ```
+
+Techniques:
+
+- WebDAV exploitation
+- File upload bypass
+- JSP shell
+- Remote command execution
+
+---
+
+## Image Provenance
+
+Powered by:
+
+https://github.com/vulhub/vulhub
+
+Used to simulate historical enterprise vulnerabilities without manually compiling vulnerable software.
 
 ---
 
 # 🚩 4. CTF Lab Ecosystem
 
-> Offensive + Defensive Training Ground
+> Web Exploitation, API Hacking, & Classic Vulnerability Training
 
-RangeOps is designed as a mirror:
+Dedicated environments for practicing:
 
-Attackers perform exploitation.
+- Web exploitation
+- API security
+- Logic flaws
+- Application vulnerabilities
 
-Defenders analyze the artifacts.
+The lab follows a Purple Team workflow:
+
+```text
+Attack Application
+        ↓
+Generate Artifacts
+        ↓
+Analyze Logs
+        ↓
+Detect Through Wazuh
+        ↓
+Improve Rules
+```
 
 ---
 
-## Training Goals
+# Current CTF Targets
 
-Learn:
+---
 
-- Reverse shell detection
-- Command execution telemetry
-- Bash behavior analysis
-- Privilege escalation detection
-- Forensic investigation
+## OWASP Juice Shop
 
-Useful for:
+**Modern Web Application Security Training**
 
-- CTF preparation
-- Purple Team exercises
-- SOC analyst training
+Focus:
+
+- API security
+- Authentication flaws
+- JWT vulnerabilities
+- Client-side attacks
+
+Examples:
+
+```text
+SQL Injection
+        ↓
+Authentication Bypass
+
+JWT Weakness
+        ↓
+Token Manipulation
+
+XXE
+        ↓
+Data Exfiltration
+
+NoSQL Injection
+        ↓
+Database Abuse
+```
+
+---
+
+## DVWA
+
+**Classic Web Pentesting Environment**
+
+Training for fundamental vulnerabilities.
+
+Covered:
+
+- Reflected XSS
+- Stored XSS
+- Blind SQL Injection
+- Local File Inclusion
+- Remote File Inclusion
+- Command Injection
 
 ---
 
@@ -243,12 +337,12 @@ Useful for:
 
 | Component | Technology |
 |---|---|
-| SIEM/XDR | Wazuh 4.x |
+| SIEM / XDR | Wazuh 4.x |
 | Container | Docker + Docker Compose |
 | Host OS | Debian 13 / Ubuntu 22.04 |
 | Network | ZeroTier + UFW |
 | Telemetry | Bash + PROMPT_COMMAND |
-| Targets | Vulhub + Custom Images |
+| Targets | Vulhub + Custom Docker Images |
 
 ---
 
@@ -272,11 +366,11 @@ cd wazuh-docker/single-node
 docker compose up -d
 ```
 
-Wait until all services initialize.
+Wait until services initialize.
 
 ---
 
-## Deploy KotH Arena
+## Deploy KotH
 
 ```bash
 cd ../../koth-arena
@@ -290,7 +384,7 @@ docker compose up -d --build
 
 ## 🔴 Red Team
 
-Example:
+Attack:
 
 ```bash
 ssh player@<TARGET_IP> -p 2222
@@ -302,7 +396,7 @@ Privilege escalation:
 bash -p
 ```
 
-Capture:
+Objective:
 
 ```bash
 echo "PLAYER_WINS" > /root/king.txt
@@ -314,13 +408,13 @@ echo "PLAYER_WINS" > /root/king.txt
 
 Open:
 
-```
+```text
 https://<HOST_IP>:8443
 ```
 
-Navigate:
+Go to:
 
-```
+```text
 Threat Hunting
 ```
 
@@ -334,6 +428,7 @@ Expected:
 
 ```
 Privilege Escalation Alert
+
 King File Modification Alert
 ```
 
@@ -345,18 +440,16 @@ King File Modification Alert
 rangeops/
 
 ├── wazuh-docker/
-│   └── Wazuh SIEM deployment
-
+│
 ├── koth-arena/
 │   ├── Dockerfile
 │   ├── docker-compose.yml
 │   └── koth-logs/
-
+│
 ├── vulhub/
-│   └── Vulnerable CVE environments
-
+│
 ├── .gitignore
-
+│
 └── README.md
 ```
 
@@ -366,29 +459,33 @@ rangeops/
 
 Contributions are welcome.
 
-To add a new scenario:
+Add new:
 
-1. Fork repository
+- CVE scenarios
+- Detection rules
+- CTF machines
+- Telemetry integrations
 
-2. Create branch:
+
+Create branch:
 
 ```bash
 git checkout -b feature/new-scenario
 ```
 
-3. Commit:
+Commit:
 
 ```bash
-git commit -m "feat: add new CVE scenario"
+git commit -m "feat: add new scenario"
 ```
 
-4. Push:
+Push:
 
 ```bash
 git push origin feature/new-scenario
 ```
 
-5. Open Pull Request
+Open Pull Request.
 
 ---
 
