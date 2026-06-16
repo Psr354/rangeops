@@ -12,7 +12,7 @@ chmod 644 $SCORE_FILE $STATE_FILE
 
 while true; do
     # Baca isi king.txt dan bersihkan dari spasi/newline
-    OWNER=$(cat $KING_FILE 2>/dev/null | tr -d '\n\r ' | head -c 30)
+    OWNER=$(cat $KING_FILE 2>/dev/null | tr -d '\n\r ' | tr -cd 'A-Za-z0-9_.-' | head -c 30)
     if [ -z "$OWNER" ]; then OWNER="NOBODY"; fi
 
     STATE=$(cat $STATE_FILE)

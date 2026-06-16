@@ -141,7 +141,7 @@ ssh player@<TARGET_IP> -p 2222
 Privilege escalation:
 
 ```bash
-bash -p
+/usr/local/bin/privshell -p
 ```
 
 Claim throne:
@@ -378,6 +378,27 @@ cd ../../koth-arena
 docker compose up -d --build
 ```
 
+KotH endpoints:
+
+```text
+http://<HOST_IP>:8080
+ssh player@<HOST_IP> -p 2222
+```
+
+## Deploy SOC Dashboard
+
+```bash
+cd ../soc-dashboard
+
+docker compose up -d
+```
+
+SOC dashboard:
+
+```text
+http://<HOST_IP>:8090
+```
+
 ---
 
 # 🎯 Purple Team Workflow
@@ -393,7 +414,7 @@ ssh player@<TARGET_IP> -p 2222
 Privilege escalation:
 
 ```bash
-bash -p
+/usr/local/bin/privshell -p
 ```
 
 Objective:
@@ -432,6 +453,38 @@ Privilege Escalation Alert
 King File Modification Alert
 ```
 
+RangeOps KotH telemetry:
+
+```text
+100100  Web diagnostics page requested
+100101  Scoreboard requested
+100102  Web command execution detected
+100106  Vulnerable command runner requested
+100107  SSH connection attempt detected
+100108  SSH failed password detected
+100109  SSH successful password login detected
+100103  Interactive shell command captured
+100104  King file interaction detected
+100105  Privilege escalation helper executed
+```
+
+Collected files:
+
+```text
+koth-arena/koth-logs/apache-access.log
+koth-arena/koth-logs/apache-error.log
+koth-arena/koth-logs/ssh.log
+koth-arena/koth-logs/web-requests.log
+koth-arena/koth-logs/web-commands.log
+koth-arena/koth-logs/commands.log
+```
+
+Dashboard query:
+
+```kql
+agent.id: "000" AND rule.groups: "rangeops"
+```
+
 ---
 
 # 📂 Directory Structure
@@ -444,7 +497,15 @@ rangeops/
 ├── koth-arena/
 │   ├── Dockerfile
 │   ├── docker-compose.yml
+│   ├── index.php
+│   ├── scoreboard.php
+│   ├── koth-tracker.sh
 │   └── koth-logs/
+│
+├── soc-dashboard/
+│   ├── docker-compose.yml
+│   ├── dashboard.php
+│   └── index.php
 │
 ├── vulhub/
 │

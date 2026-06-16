@@ -1,6 +1,18 @@
 <?php
-$data = json_decode(file_get_contents('scores.json'), true);
-$state = json_decode(file_get_contents('state.json'), true);
+require_once __DIR__ . '/logger.php';
+
+koth_log_event('web-requests.log', ['event' => 'scoreboard_request']);
+
+$data = json_decode(@file_get_contents('scores.json'), true);
+$state = json_decode(@file_get_contents('state.json'), true);
+
+if (!is_array($data)) {
+    $data = ['scores' => [], 'winner' => null];
+}
+
+if (!is_array($state)) {
+    $state = ['current_king' => 'NOBODY', 'hold_time' => 0];
+}
 ?>
 <!DOCTYPE html>
 <html>

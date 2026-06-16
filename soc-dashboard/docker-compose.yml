@@ -1,0 +1,9 @@
+services:
+  soc-dashboard:
+    image: php:8.2-apache
+    container_name: rangeops-soc-ui
+    ports:
+      - "8090:80"
+    volumes:
+      - ./:/var/www/html
+    restart: unless-stopped

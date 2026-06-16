@@ -58,7 +58,7 @@ $services = [
             <div class="space-y-4 text-sm">
                 <div class="flex gap-4">
                     <span class="text-red-400 font-bold w-32 shrink-0">KOTH ARENA</span>
-                    <span class="text-gray-300">Ping.php RCE → .db_config.php.bak Looting → SSH Pivoting → SUID bash -p</span>
+                    <span class="text-gray-300">Ping RCE → db_config.php.bak Looting → SSH Pivoting → /usr/local/bin/privshell -p</span>
                 </div>
                 <div class="flex gap-4">
                     <span class="text-orange-400 font-bold w-32 shrink-0">JENKINS</span>

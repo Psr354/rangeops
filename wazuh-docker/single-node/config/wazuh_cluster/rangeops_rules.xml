@@ -1,0 +1,55 @@
+<group name="rangeops,koth,">
+  <rule id="100100" level="3">
+    <decoded_as>json</decoded_as>
+    <field name="event">diagnostics_request</field>
+    <description>RangeOps KotH web diagnostics page requested</description>
+  </rule>
+
+  <rule id="100101" level="3">
+    <decoded_as>json</decoded_as>
+    <field name="event">scoreboard_request</field>
+    <description>RangeOps KotH scoreboard requested</description>
+  </rule>
+
+  <rule id="100102" level="12">
+    <decoded_as>json</decoded_as>
+    <field name="event">web_rce_command</field>
+    <description>RangeOps KotH web command execution detected</description>
+  </rule>
+
+  <rule id="100106" level="3">
+    <decoded_as>json</decoded_as>
+    <field name="event">vuln_page_request</field>
+    <description>RangeOps KotH vulnerable command runner requested</description>
+  </rule>
+
+  <rule id="100103" level="10">
+    <match>koth-arena bash:</match>
+    <description>RangeOps KotH interactive shell command captured</description>
+  </rule>
+
+  <rule id="100104" level="14">
+    <match>/root/king.txt</match>
+    <description>RangeOps KotH king file interaction detected</description>
+  </rule>
+
+  <rule id="100105" level="12">
+    <match>/usr/local/bin/privshell</match>
+    <description>RangeOps KotH privilege escalation helper executed</description>
+  </rule>
+
+  <rule id="100107" level="3">
+    <match>Connection from</match>
+    <description>RangeOps KotH SSH connection attempt detected</description>
+  </rule>
+
+  <rule id="100108" level="7">
+    <match>Failed password</match>
+    <description>RangeOps KotH SSH failed password detected</description>
+  </rule>
+
+  <rule id="100109" level="5">
+    <match>Accepted password</match>
+    <description>RangeOps KotH SSH successful password login detected</description>
+  </rule>
+</group>
